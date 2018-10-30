@@ -1,0 +1,24 @@
+<h3 *ngIf="editing">Editing family:</h3>
+<h3 *ngIf="!editing">Adding new family:</h3>
+<p>
+  <label for="surname">Family Name:</label>
+  <input #surname type="text" id="surname" name="surname" value=""/>
+</p>
+<p>
+  <label>Family Members:</label>
+</p>
+<p *ngIf="familyToEdit && familyToEdit.members && familyToEdit.members.length==0" class="no-members">No family
+  members.</p>
+<mat-list *ngIf="familyToEdit && familyToEdit.members && familyToEdit.members.length>0">
+  <mat-list-item *ngFor="let person of familyToEdit.members;index as index">
+    <span>{{familyToEdit.getPersonFullName(person)}}</span>
+    <button class="person-edit-button" [attr.data-index]="index" (click)="editPerson($event)">Edit</button>
+    <mat-divider [inset]="true"></mat-divider>
+  </mat-list-item>
+  <mat-divider [inset]="true"></mat-divider>
+</mat-list>
+<button (click)="addPerson($event)">Add a new family member...</button>
+<mat-card *ngIf="currentlyEditingPerson">
+  <app-person-editor [editing]="!isCurrentPersonNew()" [personToEdit]="currentlyEditingPerson" (newPersonSaver)="newPersonSaved($event)" (editedPersonSaver)="editedPersonSaved($event)"></app-person-editor>
+</mat-card>
+<button (click)="saveFamily($event)">Save Family</button>

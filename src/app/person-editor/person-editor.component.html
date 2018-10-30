@@ -1,0 +1,10 @@
+<h3 *ngIf="editing">Editing person:</h3>
+<h3 *ngIf="!editing">Adding new person:</h3>
+<p>
+  <label for="name">First Name:</label>
+  <input #name type="text" id="name" name="name" value=""/>
+</p>
+<mat-divider></mat-divider>
+<p>
+  <button (click)="savePerson()">Save Person</button>
+</p>

@@ -1,0 +1,19 @@
+<mat-card>
+  <h2>Families Editor</h2>
+  <mat-list>
+    <h3>Existing Families:</h3>
+    <span *ngIf="families.length==0">No Families Stored.</span>
+    <mat-list-item *ngFor="let family of families;index as index">
+      <span class="family-name">{{ family.getFamilyName() }}</span>
+      <button [attr.data-index]="index" (click)="editFamily($event)">Edit</button>
+      <mat-divider [inset]="true"></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  <mat-divider [inset]="false"></mat-divider>
+  <mat-list-item>
+    <button (click)="addFamily($event)">Add a new family...</button>
+  </mat-list-item>
+  <mat-card  *ngIf="currentlyEditingFamily">
+   <app-family-editor [familyToEdit]="currentlyEditingFamily" [editing]="!isCurrentFamilyNew()" (newFamilySaver)="newFamilySaved($event)" (editedFamilySaver)="editedFamilySaved($event)"></app-family-editor>
+  </mat-card>
+</mat-card>
